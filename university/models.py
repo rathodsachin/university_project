@@ -112,10 +112,10 @@ class Transaction(TimeStampedModel):
 	status=models.CharField(max_length=10,choices=FEE_STATUS,default="Pending")
 
 
-	data = {
-	'uuid': uuid,
-	'user': students,
-	'paid_amount': paid_amount,
-	'status': status,
-	}
-	request_dump =json.dumps(data)
+	# data = {
+	# 'uuid': uuid,
+	# 'user': students,
+	# 'paid_amount': paid_amount,
+	# 'status': status,
+	# }
+	# request_dump =json.dumps(data)
