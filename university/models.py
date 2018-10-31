@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
 import uuid
-import json
+#from jsonfield import JSONField
 
 
 # Create your models here.
@@ -77,6 +77,8 @@ class Students(TimeStampedModel):
 		("BCA","BCA"),		
 		)        
 	userName = models.OneToOneField(User, on_delete=models.CASCADE)
+	user_name=models.CharField(unique=True,max_length=15)
+	password1=models.CharField(max_length=15)
 	enrollment_number=models.CharField(unique=True,max_length=15)
 	branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
 	course = models.CharField(max_length=9,choices=COURSE_CHOICE,default="M.TECH")
@@ -90,11 +92,12 @@ class Students(TimeStampedModel):
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
-			Students.objects.create(userName=instance)
+			Students.objects.get_or_create(userName=instance)
+			Branch.objects.get_or_create(branch=instance)
+			instance.profile.save()
 
-	@receiver(post_save, sender=User)
-	def save_user_profile(sender, instance, **kwargs):
-		instance.profile.save()
+	post_save.connect(create_user_profile, sender=User)
+
 
 #Institute = forms.ModelChoiceField(queryset=InstituteModel.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
@@ -106,7 +109,7 @@ class Transaction(TimeStampedModel):
 		("Failed","Failed"),
 		)
 
-	uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	uuid = models.UUIDField(primary_key=True)
 	students=models.ForeignKey(Students, on_delete=models.CASCADE)
 	paid_amount=models.IntegerField()
 	status=models.CharField(max_length=10,choices=FEE_STATUS,default="Pending")
@@ -118,4 +121,4 @@ class Transaction(TimeStampedModel):
 	# 'paid_amount': paid_amount,
 	# 'status': status,
 	# }
-	# request_dump =json.dumps(data)
+	# request_dump = JSONField(data) 

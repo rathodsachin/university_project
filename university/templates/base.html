@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>          
+          .bg-grey {
+              background-color: #f6f6f6;
+          }
+          .container-fluid {
+              padding: 10px 50px;
+          }        
+            body {
+            padding-top: 50px;
+            }     
+        .navbar-nav li a:hover, .navbar-nav li.active a {
+            color: #90db6d !important;
+            background-color: #fff !important;
+        }
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">          
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="/university">            
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                                    
+          </button>
+          <a class="navbar-brand" href="/university"><span class="glyphicon glyphicon-education"></span>Home</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">             
+            <a class="navbar-brand"">           </a>
+            <a class="navbar-brand"">           </a>
+            <a class="navbar-brand"">           </a>
+            <a class="navbar-brand"">           </a>
+            <a class="navbar-brand"">           </a>
+            <a class="navbar-brand"">           </a>            
+
+            <a class="navbar-brand" >Django Institute</a>        
+          <ul class="nav navbar-nav navbar-right">                        
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}                
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+            {% endif %}                
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">          
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+   
+<!-- 
+<script src="{% static 'crud/js/jquery-3.2.1.js' %}"></script> 
+<script src="{% static 'crud/js/script.js' %}"></script> 
+-->
+
+</body>
+</html>
