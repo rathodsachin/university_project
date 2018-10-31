@@ -86,14 +86,15 @@ class Students(TimeStampedModel):
 	dob = models.DateField(default=datetime.date.today)
 	is_active = models.BooleanField(default=True)	
 
+	USERNAME_FIELD = 'user_name'
+
 	def __str__(self):
 		return self.userName.username
 
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
-			Students.objects.get_or_create(userName=instance)
-			Branch.objects.get_or_create(branch=instance)
+			Students.objects.get_or_create(userName=instance)			
 			instance.profile.save()
 
 	post_save.connect(create_user_profile, sender=User)
