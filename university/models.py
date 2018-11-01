@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
 import uuid
+
 #from jsonfield import JSONField
 
 
@@ -22,19 +23,12 @@ class Institute(TimeStampedModel):
 	brochure = models.FileField(upload_to='media/')
 	is_active = models.BooleanField(default=True)
 
-	def save(self):
-		if not self.id:
-			self.slug = slugify(self.name)
-
-		super(Institute, self).save()
-
 	def __str__(self):
 		return self.name
 
 
 class Branch(TimeStampedModel):
-
-	institute = models.ForeignKey(Institute, on_delete=models.CASCADE)    
+	   
 	name = models.CharField(max_length=40,help_text='Enter Branch Name.',unique=True)
 	slug = models.SlugField(max_length=100)	
 	email_address = models.EmailField(max_length=40,unique=True,help_text='Enter Email.')
@@ -42,6 +36,7 @@ class Branch(TimeStampedModel):
 	phone = PhoneNumberField()
 	brochure = models.FileField(upload_to='media/')
 	is_active = models.BooleanField(default=True)
+	institute = models.ForeignKey(Institute, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name
@@ -80,6 +75,7 @@ class Students(TimeStampedModel):
 	user_name=models.CharField(unique=True,max_length=15)
 	password1=models.CharField(max_length=15)
 	enrollment_number=models.CharField(unique=True,max_length=15)
+	institute= models.ForeignKey(Institute, on_delete=models.CASCADE)
 	branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
 	course = models.CharField(max_length=9,choices=COURSE_CHOICE,default="M.TECH")
 	phone = PhoneNumberField()
