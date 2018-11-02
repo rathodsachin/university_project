@@ -21,16 +21,15 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():          
-            instname=form.cleaned_data.get('Institute')
-            brchname=form.cleaned_data.get('Branch')
-            
             import pdb;pdb.set_trace()
-            inst=Institute.objects.get(name="Nirma University")
-            print("Helollllollolol")
-            id = inst.id
-            inst.save()
-            brch=Branch.objects.get_or_create(name="Institute of technology")
-            brch.save()
+            inst=request.POST.get('institute')            
+            brch=request.POST.get('branch')            
+            # inst=Institute.objects.get(name="Nirma University")
+            # print("Helollllollolol")
+            # id = inst.id
+            # inst.save()
+            # brch=Branch.objects.get(name="Institute of technology")
+            # brch.save()
 
             
             
@@ -38,12 +37,12 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
 
             user = User.objects.create_user(                                                                                    
-                    username = request.POST['user_name'],
-                    password = request.POST['password1'],
+                    username = request.POST.get('user_name'),
+                    password = request.POST.get('password1'),
                 )
             
             
-            s=Students(
+            s=Students.objects.create(
                     userName=user,
                     user_name=request.POST['user_name'],
                     password = request.POST['password1'],
@@ -52,8 +51,8 @@ def signup(request):
                     phone = request.POST['phone'],
                     dob = request.POST['dob'],
                     enrollment_number = request.POST['enrollment_number'],
-                    branch = brch,
-                    institute = inst,
+                    branch = inst,
+                    institute = brch,
                     course = request.POST['course'],
                 )
             print(s)

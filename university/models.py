@@ -75,14 +75,14 @@ class Students(TimeStampedModel):
 	user_name=models.CharField(unique=True,max_length=15)
 	password1=models.CharField(max_length=15)
 	enrollment_number=models.CharField(unique=True,max_length=15)
-	institute= models.ForeignKey(Institute, on_delete=models.CASCADE)
-	branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+	institute= models.ForeignKey(Institute, on_delete=models.CASCADE,null=True,blank=True)
+	branch = models.ForeignKey(Branch, on_delete=models.CASCADE,null=True,blank=True)
 	course = models.CharField(max_length=9,choices=COURSE_CHOICE,default="M.TECH")
 	phone = PhoneNumberField()
 	dob = models.DateField(default=datetime.date.today)
 	is_active = models.BooleanField(default=True)	
 
-	USERNAME_FIELD = 'user_name'
+	# USERNAME_FIELD = 'user_name'
 
 	def __str__(self):
 		return self.userName.username
@@ -90,7 +90,7 @@ class Students(TimeStampedModel):
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
-			Students.objects.get_or_create(userName=instance)			
+			Students.objects.create(userName=instance)			
 			instance.profile.save()
 
 	post_save.connect(create_user_profile, sender=User)
