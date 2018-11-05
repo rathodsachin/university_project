@@ -74,3 +74,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
+def load_branch(request):
+    institude_id = request.GET.get('institute')
+    branch = Branch.objects.filter(branch_id=institude_id).order_by('name')
+    branch_list = list(branch)
+    return JsonResponse(branch_list, safe=False)    

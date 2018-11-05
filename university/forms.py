@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Students
 from .models import Institute
+from .models import Branch
 from django.forms.widgets import SelectDateWidget
+from django.http import JsonResponse
 import datetime
 
 
@@ -15,3 +17,7 @@ class SignUpForm(forms.ModelForm):
 	class Meta:
 		model=Students
 		fields=('user_name','password1','first_name','last_name','email_address','phone', 'dob', 'enrollment_number', 'institute','branch', 'course',)
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['branch'].queryset = Branch.objects.none()

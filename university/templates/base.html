@@ -16,7 +16,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-<link rel="stylesheet" href="{% static 'css/base.css' %}">
 {% endblock %}
 </head>
 
@@ -68,7 +67,35 @@
   <!-- 3rd party JavaScript -->
 
   <!-- Project JS -->
-  <script src="{% static 'js/base.js' %}"></script>
+
+<script src="{% static 'university/js/jquery-3.2.1.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+      console.log($.ajax);
+    });
+  </script>
+
+  <script>
+    $("#id_institute").change(function () {
+      var url = $("#studentForm").attr("data-branch-url");  // get the url of the `load_cities` view
+      var instituteID = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'institute': id_institute  // add the country id to the GET parameters
+        },
+        success: function (data) { 
+            console.log("Check Working")  // `data` is the return of the `load_cities` view function
+          $("#id_branch").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+
 
   {% endblock javascript %}
 

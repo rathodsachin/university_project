@@ -9,4 +9,5 @@ urlpatterns = [
 	#url(r'^logout/$', auth_views.LogoutView.as_view({'next_page': 'login'}),name='logout'),	
 	url(r'^logout/$', auth_views.LogoutView.as_view(template_name="home.html"),name='logout'),
 	url(r'^signup/$', views.signup, name='signup'),		
+	url(r'^load_branch/$',views.load_branch,name="load_branch"),
 ]
