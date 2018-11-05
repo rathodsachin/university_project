@@ -71,7 +71,7 @@ class Students(TimeStampedModel):
 		("MCA","MCA"),
 		("BCA","BCA"),		
 		)        
-	userName = models.OneToOneField(User, on_delete=models.CASCADE)
+	userName = models.OneToOneField(User, on_delete=models.CASCADE,related_name="students")
 	user_name=models.CharField(unique=True,max_length=15)
 	password1=models.CharField(max_length=15)
 	enrollment_number=models.CharField(unique=True,max_length=15)
@@ -87,13 +87,6 @@ class Students(TimeStampedModel):
 	def __str__(self):
 		return self.userName.username
 
-	@receiver(post_save, sender=User)
-	def create_user_profile(sender, instance, created, **kwargs):
-		if created:
-			Students.objects.create(userName=instance)			
-			instance.profile.save()
-
-	post_save.connect(create_user_profile, sender=User)
 
 
 #Institute = forms.ModelChoiceField(queryset=InstituteModel.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))

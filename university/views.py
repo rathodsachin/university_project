@@ -21,9 +21,12 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():          
+            
+            instid=request.POST.get('institute')            
+            brchid=request.POST.get('branch')            
             import pdb;pdb.set_trace()
-            inst=request.POST.get('institute')            
-            brch=request.POST.get('branch')            
+            inst=Institute.objects.get(id=instid)
+            brch=Branch.objects.get(id=brchid)
             # inst=Institute.objects.get(name="Nirma University")
             # print("Helollllollolol")
             # id = inst.id
@@ -37,26 +40,25 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
 
             user = User.objects.create_user(                                                                                    
-                    username = request.POST.get('user_name'),
-                    password = request.POST.get('password1'),
+                    username = username,
+                    password = raw_password,
                 )
-            
-            
+            user.save()
+            print(form)
             s=Students.objects.create(
                     userName=user,
-                    user_name=request.POST['user_name'],
-                    password = request.POST['password1'],
-                    first_name = request.POST['first_name'],
-                    last_name = request.POST['last_name'],
+                    user_name=username,
+                    password1 = request.POST['password1'],                                        
                     phone = request.POST['phone'],
                     dob = request.POST['dob'],
                     enrollment_number = request.POST['enrollment_number'],
-                    branch = inst,
-                    institute = brch,
                     course = request.POST['course'],
+                    branch = brch,
+                    institute = inst,
+                    
                 )
             print(s)
-            user.save()
+            
             s.save()
 
 

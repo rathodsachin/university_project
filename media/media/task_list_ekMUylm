@@ -1,0 +1,206 @@
+1)
+
+    -->Take input from user.
+    --> Now identify if the characters in input are Upper case or lower case.
+    --> Ignore those in upper case
+    --> Print ASCII code of the lower case input chars.
+
+2)
+
+    Take paragraph as input from user.
+    --> Now store that paragraph in a suitable data structure.
+    --> Ask user if he wants to update any word from the paragraph or if he wants to edit any word from the paragraph.
+    --> If he wants to edit, ask which word to edit.
+    --> Ask the new word.
+    --> replace the new word and print the edited paragraph in console.
+    --> If user choose to delete any word, delete that word and print the paragraph again in console after deleting the word.
+
+3)
+
+    --> Ask user to enter any username of his choice.
+    --> Store that username in any suitable data structure.
+    --> Ask user for password.
+    --> Store the password in suitable data structure.
+    --> Now username should match the following conditions:
+        1) username should have atleast one '.'
+        2) Username should have atleast one '_'
+        3) Username should atleast be 8 in length.
+    --> Password should have the following conditions:
+        1) Atleast one of the following '@,#,$,%'.
+        2) Atleast one uppercase letter
+        3) Atleast one lowercase letter
+        4) Atleast one digit from 0-9.
+    --> Analyze the username and password and print the non matching conditions in console.
+    --> like if my username doesnot have one _ print uname doesn;t have _ if password doesn't have @ and upercase letter print errors in them accordingly
+
+
+4)
+    -Progarm to impement calculator using class. Every operation should be between two instances.
+        Following operations should be implemented:
+            1) Addition
+            2) Subtraction
+            3) Multiplication
+            4) Division
+            5) Power
+            6) Remainder
+            7) Bitwise Left Shift
+            8) Bitwise Right Shift
+            9) Bitwise AND
+            10) Bitwise OR
+            11) Bitwise XOR
+            12) Bitwise NOT
+            13) Less than
+            14) Less than or equal to
+            15) Equal to
+            13) Not equal to
+            14) Greater than
+            15) Greater than or equal to
+
+5)
+
+    - Make a phone directory including name and contact number:
+        --To search contact using name or number.
+        --To update specific contact details in phone directory.
+
+6)
+
+    - Make a Test module:
+        --User can give exam.
+        --Show Result.
+        --Exam and user data will fetch from csv file and validation are mandatory.
+
+7)
+
+    - Make a script for handling Exception.(minimum 10 Exception)
+    - Make a script for handling user defined Exception.
+
+8)
+
+    File Manager_1:-
+python a.py --list --file
+    - Make a python script which takes command line argument from user, the arguments being
+        * --list --file (Lists all the files in a given directory)
+        * --list --folder (Lists all the folders in a given directory)
+
+        (passing Just --list should list everything)
+
+        * --move --file path/of/file --destination destination/path (moves file to given destination)
+        * --move --folder path/of/folder --destination destination/path (moves file to given destination)
+
+
+
+        * --copy --file file_name --destination destination/path (copies file to given destination)
+        * --copy --folder folder_name --destination destination/path (copies file to given destination)
+
+        * --delete file_name (Deletes the given file)
+        (Passing Folder here should prompt the user that it is a folder and it can't be deleted)
+
+
+    Sorter:-
+
+    - Make a python scripts which makes folder as per the date and moves content to that given folder using command line argument.
+        * --sort --file (makes a folder Month wise within it week wise and moves the files into that)
+            For example if I have 10 files which I created in Week 1 and 10 files which I created in week2 , then there should be:
+                1 Folder of month
+                Within it other folders of week
+
+            Structure would look something like this:
+            June/
+                files_June/
+                    week_1/
+                        file_1
+                        file_2
+                        file_3
+                    week_2/
+                        file_1
+                        file_2
+                        file_3
+                    week_3
+                        file_1
+                        file_2
+        * --sort --folder (Same as above but for folders and the folders which are created by this script should not be moved or sorted)
+            For example:
+                If I have 4 folders
+                -any_folder
+                -afolder
+                -files_june
+                -folder_march
+                Then files_june and folder_march shall not be moved/sorted
+
+    Compress_Your_Stuff:-
+
+    - Make a python script which compresses above given tasks folder using command line argument
+
+        * --compress --file-manager
+                This compresses the folder in which file_manager did its operations
+
+        * --compress --sorter
+                This compresses the folder in which sorter did its operations
+        * --decompress file_name
+                decompress
+
+
+    Selector:-
+
+    - Make a python script which runs scripts of Filemanager or sorter or the compressor on the basis of command line arguments
+
+        For example:
+            * --run --file-manager --list
+            * --run --file-manager --list --file
+            * --run --file-manager --list --folder
+        And like wise all its operation
+
+            * --run --sort --file
+            * --run --sort --folder
+        And like wise all its operations
+
+            * --run --compressor --file-mager
+            * --run --compressor --sorter
+        And like wise all its operations
+
+9)
+
+    - Make a script to get time from user and perform below opration using instances.
+        --Increase a Time by (seconds/minutes/hours).
+        --Addition of two time values
+        --Diffrence of two time values
+
+10)
+
+    - Make a script for below opration using class and its instances..
+        --Perform addition of two matrix.
+        --Perform multiplication of two matrix.
+
+11)
+
+    - Make a script to perform opreation on list using its methods.
+
+ 
+12):
+
+1.Create Database
+2. Open Existing Database
+3. List All the Existing Database
+4. List All the Tables of specific Database
+5. Create New Table into Database
+6. Display Data of Table
+7. Insert Records into Table
+8. Update Records of Table
+9. Delete Records from Table
+10. Add New Column into Table
+11. Delete Existing column from Table
+12. Drop the Table
+
+
+13):
+
+How to use git
+(Make an account with company's email, DO NOT USE PERSONAL GIT ACCOUNT)
+http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners
+https://git-scm.com/docs/gittutorial
+http://rogerdudler.github.io/git-guide/
+(All three links above of the git are just the ones I found first, you can learn how to use git from whichever source you want) 
+
+
+
+
