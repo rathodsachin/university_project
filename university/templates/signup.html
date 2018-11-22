@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form class="form-group" method="post"  id="studentForm" data-branch-url="{% url 'load_branch' %}>
+<form class="form-group" method="post"  id="studentForm">
 	{% csrf_token %}	
 	{% load static %} 
 	
@@ -23,8 +23,6 @@
 	      
 </form>
 
-
- 
-
-
 {% endblock %}
+
+
