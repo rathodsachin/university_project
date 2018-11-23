@@ -53,11 +53,8 @@ def signup(request):
                     institute = inst,
                     
                 )
-            print(s)
-            
+            print(s)        
             s.save()
-
-
 
             user = authenticate(username=username, password=raw_password)
             login(request, user)
@@ -73,3 +70,17 @@ def load_branch(request):
     branch = Branch.objects.filter(institute_id=institute_id).order_by('name')
     json_data = {'branch': {b.id: b.name for b in branch}}
     return JsonResponse(json_data)    
+
+def payfees(request):
+    if request.user.is_authenticated:
+        print(request.user.id)
+        user_id=request.user.id
+        students = Students.objects.get(userName_id=user_id) 
+        fee= Fee.objects.filter(branch_id=students.branch.id)
+        context = {'fee': fee}
+        #json_data= {'fees': {b.fee_type: b.amount for b in fee}}   
+        #import pdb;pdb.set_trace()
+        #print(json_data)
+        
+
+    return render(request, 'payfees.html',context)

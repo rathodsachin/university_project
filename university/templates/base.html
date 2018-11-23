@@ -27,7 +27,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'home' %}">Pay Fees</a>
+        <a class="navbar-brand" href="{% url 'payfees' %}">Pay Fees</a>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,8 +77,7 @@
     $("#id_institute").change(function () {     
 
     $("#id_branch").find('option').remove().end().append(new Option('----Select Branch----', 'select', true, true));    
-      var url = "{% url 'load_branch' %}";  // get the url of the `load_cities` view
-      console.log(url)
+      var url = "{% url 'load_branch' %}";  // get the url of the `load_cities` view      
       var instituteID = $(this).val();  // get the selected country ID from the HTML input          
     
     function getCookie(name) {
@@ -117,6 +116,31 @@
       });
 
     });
+
+    $("#ckbCheckAll").click(function () {
+        $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+    });
+    
+    $(".checkBoxClass").change(function(){
+        if (!$(this).prop("checked")){
+            $("#ckbCheckAll").prop("checked",false);
+        }
+    });
+
+
+    $("input:checkbox").change(function () {
+         var total = 0;
+          $('input:checkbox:checked').each(function(){
+           total += isNaN(parseInt($(this).val())) ? 0 : parseInt($(this).val());
+          });   
+        
+        $('#total').html(total);
+
+        });
+
+
+
+
   </script>
   
   {% endblock javascript %}
