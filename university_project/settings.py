@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from django.urls import reverse_lazy
+
+from django.core.urlresolvers import reverse
+
 #from django.urls import reverse
 
-LOGIN_REDIRECT_URL=reverse_lazy('home')
-LOGIN_URL=reverse_lazy('login')
-LOGOUT_URL=reverse_lazy('home')
+LOGIN_REDIRECT_URL='home'
+LOGIN_URL='login'
+LOGOUT_URL='home'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'paytm'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
@@ -131,3 +134,17 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PAYTM_MERCHANT_KEY = "XK8NFDV7vE#NGs8J"
+PAYTM_MERCHANT_ID = "hzBibC95835247759370"
+
+PAYTM_CALLBACK_URL = "/response/"
+PAYTM_WEBSITE = 'WEB_STAGING'
+HOST_URL = 'http://localhost:8000'
+
+
+if DEBUG:
+    PAYTM_MERCHANT_KEY = "XK8NFDV7vE#NGs8J"
+    PAYTM_MERCHANT_ID = "hzBibC95835247759370"
+    PAYTM_WEBSITE = 'WEB_STAGING'
+    HOST_URL = 'http://localhost:8000'
