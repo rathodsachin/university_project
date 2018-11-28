@@ -133,8 +133,10 @@
           $('input:checkbox:checked').each(function(){
            total += isNaN(parseInt($(this).val())) ? 0 : parseInt($(this).val());
           });   
-        
+              
         $('#total').html(total);
+        $('#fee_total').val(total);
+        
 
         });
 

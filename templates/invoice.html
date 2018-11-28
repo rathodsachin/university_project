@@ -69,7 +69,9 @@
                             <td class="col-md-1 text-center">{{paytm.TXNAMOUNT}}</td>
                         </tr>                        
                         <tr>
-                            <td><button type="button" class="btn btn-success"><a href="{% url 'pdf_generation' %}">Pdf <i class="fa fa-file-pdf-o"></i></a></button>                            	
+                            <td><button type="button" class="btn btn-success">Pdf <i class="fa fa-file-pdf-o"></i></button>  
+                            	    <a href="{% url 'pdf_generation' %}">PDFNEW<i class="fa fa-file-pdf-o"></i></a>
+
                              </td>                            
                             <td class="text-right"><h4><strong>Total: </strong></h4></td>
                             <td class="text-center text-success"><h4><strong>{{paytm.TXNAMOUNT}}</strong></h4></td>

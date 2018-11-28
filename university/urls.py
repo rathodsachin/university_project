@@ -12,8 +12,9 @@ urlpatterns = [
 	url(r'^payfees/$', views.payfees, name='payfees'),	
     url(r'^payment/', views.payment, name='payment'),
     url(r'^response/', views.response, name='response'),
-
-	
+    url(r'^invoice/', views.invoice, name='invoice'),
+    url(r'^pdf_generation/', views.pdf_generation, name='pdf_generation'),
+    	
 
 	url(r'^password/reset/$', 
         auth_views.PasswordResetView.as_view(template_name="password_reset_form.html"), 

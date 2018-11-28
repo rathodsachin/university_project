@@ -3,7 +3,11 @@
 {% block content %}
 
 
+
+
 <div class="container"> 
+  
+
   <table class="table table-hover table-bordered ">
     <thead>
       <tr>
@@ -25,12 +29,16 @@
 		{% endfor %}
 		<tr>
 			<th>Total Amount</th>
-			<th><span id="total">0</span></th>
-			<th><button type="button" id="pay" class="btn btn-sm btn-success">Pay</button> </th>
+			<th><span id="total">0</span>            
+      </th>
+      <form class="form-group" method="post" action="/university/payment/"  id="payment">   
+      {% csrf_token %}  
+      <input id="fee_total" name="fee_total" type="hidden" value="0">
+			<th><button type="submit" id="pay" class="btn btn-sm btn-success">Pay</button> </th>
+      </form>
 		</tr>
 
     </tbody>
-  </table>
+  </table>  
 </div>
-
 {% endblock %}

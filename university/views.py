@@ -18,6 +18,13 @@ from django.conf import settings
 
 from . import Checksum
 
+from weasyprint import HTML, CSS
+from django.template.loader import get_template
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.template import RequestContext
+
+
 
 
 
@@ -81,8 +88,7 @@ def load_branch(request):
     return JsonResponse(json_data)    
 
 def payfees(request):
-    if request.user.is_authenticated:
-        print(request.user.id)
+    if request.user.is_authenticated:        
         user_id=request.user.id
         students = Students.objects.get(userName_id=user_id) 
         fee= Fee.objects.filter(branch_id=students.branch.id)
@@ -95,6 +101,7 @@ def payfees(request):
     return render(request, 'payfees.html',context)
 
 def payment(request):
+    print(request.POST['fee_total'])
     MERCHANT_KEY = settings.PAYTM_MERCHANT_KEY
     MERCHANT_ID = settings.PAYTM_MERCHANT_ID    
     CALLBACK_URL = "http://localhost:8000/university/response/"
@@ -109,7 +116,7 @@ def payment(request):
         data_dict = {
                     'MID':MERCHANT_ID,
                     'ORDER_ID':order_id,
-                    'TXN_AMOUNT': bill_amount,
+                    'TXN_AMOUNT': request.POST['fee_total'],
                     'CUST_ID':'harish@pickrr.com',
                     'INDUSTRY_TYPE_ID':'Retail',
                     'WEBSITE': website,
@@ -134,7 +141,66 @@ def response(request):
         verify = Checksum.verify_checksum(data_dict, MERCHANT_KEY, data_dict['CHECKSUMHASH'])
         if verify:
             PaytmHistory.objects.create(user=request.user, **data_dict)
+            user_id=request.user.id
+            students = Students.objects.get(userName_id=user_id)        
+            data_dict.update({                    
+                    'firstname':request.user.first_name,
+                    'lastname':request.user.last_name,
+                    'phone':students.phone,
+                    'enrollment_number' : students.enrollment_number,                    
+                    'institute' : students.institute,                    
+                    'branch' : students.branch,
+                })            
             return render(request,"response.html",{"paytm":data_dict})
         else:
             return HttpResponse("checksum verify failed")
     return HttpResponse(status=200)
+
+def invoice(request):
+    user_id=request.user.id
+    students = Students.objects.get(userName_id=user_id)
+    #import pdb;pdb.set_trace()
+    
+    data_dict = {                    
+                    'firstname':request.user.first_name,
+                    'lastname':request.user.last_name,
+                    'phone':students.phone,
+                    'enrollment_number' : students.enrollment_number,                    
+                    'institute' : students.institute,                    
+                    'branch' : students.branch,
+                    'ORDERID' : 'hhvAdy',
+                    'TXNAMOUNT' : '100.00',     
+                    'TXNID' : '70001158737', 
+                    'STATUS' : 'TXN_SUCCESS', 
+                    'TXNDATE' : '2018-11-28 13:03:28.0',
+                    'GATEWAYNAME' : 'WALLET',
+                }        
+    return render(request,"invoice.html",{"paytm":data_dict})
+
+
+def pdf_generation(request):
+    user_id=request.user.id    
+    paytmobj = PaytmHistory.objects.last()
+    students = Students.objects.get(userName_id=user_id)
+    data_dict = {                    
+                    'firstname':request.user.first_name,
+                    'lastname':request.user.last_name,
+                    'phone':students.phone,
+                    'enrollment_number' : students.enrollment_number,                    
+                    'institute' : students.institute,                    
+                    'branch' : students.branch,
+                    'ORDERID' : paytmobj.ORDERID,
+                    'TXNAMOUNT' : paytmobj.TXNAMOUNT,     
+                    'TXNID' : paytmobj.TXNID, 
+                    'STATUS' : paytmobj.STATUS, 
+                    'TXNDATE' : paytmobj.TXNDATE,
+                    'GATEWAYNAME' : paytmobj.GATEWAYNAME,
+                }  
+
+    html_string = render_to_string('response.html', {'paytm': data_dict}).encode(encoding="UTF-8")
+    html = HTML(string=html_string,encoding='utf-8')
+    result = html.write_pdf()
+
+    response = HttpResponse(result, content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="Fee_Receipt.pdf"'
+    return response
