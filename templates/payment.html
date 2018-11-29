@@ -1,6 +1,7 @@
 <html>
 <h1>Django Institute !!! <br><br>Fees Check Out Page<br><br> Please Do Not Refresh The Page</h1></br>
 <form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction" name="f1">
+{% csrf_token %}	
 <table border="1">
 <tbody>
 {% for key,value in paytmdict.items %}

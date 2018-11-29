@@ -107,10 +107,8 @@ def payment(request):
     CALLBACK_URL = "http://localhost:8000/university/response/"
     website = "WEBSTAGING"
     # Generating unique temporary ids
-    order_id = Checksum.__id_generator__()
-    print(CALLBACK_URL)
-    
-    
+    order_id = Checksum.__id_generator__()      
+    import pdb;pdb.set_trace()
     bill_amount = 100
     if bill_amount:
         data_dict = {
@@ -132,7 +130,6 @@ def payment(request):
 
 @csrf_exempt
 def response(request):
-    #import pdb;pdb.set_trace()
     if request.method == "POST":
         MERCHANT_KEY = settings.PAYTM_MERCHANT_KEY
         data_dict = {}
@@ -156,11 +153,12 @@ def response(request):
             return HttpResponse("checksum verify failed")
     return HttpResponse(status=200)
 
-def invoice(request):
+def invoice(request):    
     user_id=request.user.id
     students = Students.objects.get(userName_id=user_id)
-    #import pdb;pdb.set_trace()
-    
+    data_dict = {}
+    for key in request.POST:
+        data_dict[key] = request.POST[key]    
     data_dict = {                    
                     'firstname':request.user.first_name,
                     'lastname':request.user.last_name,
@@ -174,7 +172,7 @@ def invoice(request):
                     'STATUS' : 'TXN_SUCCESS', 
                     'TXNDATE' : '2018-11-28 13:03:28.0',
                     'GATEWAYNAME' : 'WALLET',
-                }        
+                }            
     return render(request,"invoice.html",{"paytm":data_dict})
 
 
